@@ -22,21 +22,24 @@ public class Pairwise{
 			System.out.println("ERROR: Pairwise.java requires at least two parameter arguments to produce a pairwise combination");
 			System.exit(1);
 		}else{
+			numParameters = args.length;
 			int i = 0;
-			while(i < args.length){
+			while(i < numParameters){
 				if(args[i].length() > 10){
 					args[i] = args[i].substring(0,11);
 				}
+				parameters.add(args[i]);
+				i = i + 1;
 			}
 		}
 		
 		//Build Exhaustive Truth Table, #param^2 by #param
 		
 		
-		//Find all toExecute Tests
+		//Find all toDisplay Tests
 		
 		
-		//Display toExecute
+		//Display all toDisplay
 		
 	}	
 }
