@@ -60,6 +60,25 @@ public class Pairwise{
 		
 		return table;
 	}
+	
+	public static String buildOutput(String[] cats, ArrayList<Integer> rows, int[][] table){
+		String out = "";
+		
+		for(String c:cats){
+			out += c + "\t";
+		}
+		out += "\n";
+		
+		for(int r:rows){
+			for(int i=0;i<table[r].length; i++){
+				out+=Integer.toString(table[r][i])+"\t";
+			}
+			out+="\n";
+		}
+		
+
+		return out;
+	}
 
 
 	public static void main(String[] args){
@@ -77,7 +96,17 @@ public class Pairwise{
 		}
 		
 		//Build Exhaustive Truth Table, #param^2 by #param
-		buildOverallTruthTable(args);
+		int[][] test;
+		test = buildOverallTruthTable(args);
+		
+		ArrayList<Integer> _i = new ArrayList<>();
+		_i.add(1);
+		_i.add(2);
+		
+		String t;
+		t = buildOutput(args, _i, test);
+		
+		System.out.println(t);
 		
 		//Find all toExecute Tests
 		
