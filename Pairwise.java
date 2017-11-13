@@ -37,7 +37,7 @@ public class Pairwise{
 	*
 	*/
 	public static int[][] buildOverallTruthTable(){
-		double w = numParameters
+		double w = numParameters;
 		double l = Math.pow(2, w);
 		
 		int[][] table = new int[(int)(l)][(int)(w)];
@@ -199,7 +199,7 @@ public class Pairwise{
 	public static void displayAll(){
 		int i = 0;
 		while(i < toDisplay.size()){
-			System.out.println(toDisplay[i]);
+			System.out.println(toDisplay.get(i));
 			
 			i = i + 1;
 		}
