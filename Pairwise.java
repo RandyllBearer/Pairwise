@@ -18,7 +18,17 @@ public class Pairwise{
 	*/
 	public static void main(String[] args){
 		//Parse Inputs, concatenate if > 10
-		
+		if(args.length < 2){
+			System.out.println("ERROR: Pairwise.java requires at least two parameter arguments to produce a pairwise combination");
+			System.exit(1);
+		}else{
+			int i = 0;
+			while(i < args.length){
+				if(args[i].length() > 10){
+					args[i] = args[i].substring(0,11);
+				}
+			}
+		}
 		
 		//Build Exhaustive Truth Table, #param^2 by #param
 		
