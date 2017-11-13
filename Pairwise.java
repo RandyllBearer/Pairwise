@@ -102,19 +102,19 @@ public class Pairwise{
 					}
 					
 					//Exhaustive Checking
-					if(table[row][first] == false && table[row][second] == false && ff == false){
+					if(table[row][first] == 0 && table[row][second] == 0 && ff == false){
 						ff = true;
 						toDisplay.add(row);
 					
-					}else if(table[row][first] == false && table[row][second] == true && ft == false){
+					}else if(table[row][first] == 0 && table[row][second] == 1 && ft == false){
 						ft = true;
 						toDisplay.add(row);
 						
-					}else if(table[row][first] == true && table[row][second] == false && tf == false){
+					}else if(table[row][first] == 1 && table[row][second] == 0 && tf == false){
 						tf = true;
 						toDisplay.add(row);
 						
-					}else if(table[row][first] == true && table[row][second] == true && tt == false){
+					}else if(table[row][first] == 1 && table[row][second] == 1 && tt == false){
 						tt = true;
 						toDisplay.add(row);
 						
@@ -135,16 +135,16 @@ public class Pairwise{
 						//Check toDisplay First
 						int i = 0;
 						while(i < toDisplay.size()){
-							if(table[i][first] == false && table[i][second] == false && ff == false){
+							if(table[i][first] == 0 && table[i][second] == 0 && ff == false){
 								ff = true;
 							
-							}else if(table[i][first] == false && table[i][second] == true && ft == false){
+							}else if(table[i][first] == 0 && table[i][second] == 1 && ft == false){
 								ft = true;
 								
-							}else if(table[i][first] == true && table[i][second] == false && tf == false){
+							}else if(table[i][first] == 1 && table[i][second] == 0 && tf == false){
 								tf = true;
 								
-							}else if(table[i][first] == true && table[i][second] == true && tt == false){
+							}else if(table[i][first] == 1 && table[i][second] == 1 && tt == false){
 								tt = true;
 								
 							}
@@ -156,19 +156,19 @@ public class Pairwise{
 						
 					}else{
 						//Exhaustive Checking
-						if(table[row][first] == false && table[row][second] == false && ff == false){
+						if(table[row][first] == 0 && table[row][second] == 0 && ff == false){
 							ff = true;
 							toDisplay.add(row);
 						
-						}else if(table[row][first] == false && table[row][second] == true && ft == false){
+						}else if(table[row][first] == 0 && table[row][second] == 1 && ft == false){
 							ft = true;
 							toDisplay.add(row);
 							
-						}else if(table[row][first] == true && table[row][second] == false && tf == false){
+						}else if(table[row][first] == 1 && table[row][second] == 0 && tf == false){
 							tf = true;
 							toDisplay.add(row);
 							
-						}else if(table[row][first] == true && table[row][second] == true && tt == false){
+						}else if(table[row][first] == 1 && table[row][second] == 1 && tt == false){
 							tt = true;
 							toDisplay.add(row);
 							
