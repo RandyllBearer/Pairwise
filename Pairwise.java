@@ -77,7 +77,7 @@ public class Pairwise{
 		int first = 0;	//index of parameters<>
 		int second = 1;	//index of parameters<>
 		
-		while(first < numParameters){
+		while(second < numParameters){
 			
 			boolean ff = false;
 			boolean ft = false;
@@ -85,18 +85,18 @@ public class Pairwise{
 			boolean tt = false;
 			int row = 0;	//which row we're on in table
 			if(first == 0 && second == 1){
-				while(!ff && !ft && !tf && !tt){
+				ff = true;
+				tt = true;
+				toDisplay.add(0);
+				toDisplay.add(numRows-1);
+				while(!ff || !ft || !tf || !tt){
 					if(row >= numRows){
 						System.out.println("ERROR: Could not find pair coverage");
 						System.exit(2);
 					}
 					
 					//Exhaustive Checking
-					if(table[row][first] == 0 && table[row][second] == 0 && ff == false){
-						ff = true;
-						toDisplay.add(row);
-					
-					}else if(table[row][first] == 0 && table[row][second] == 1 && ft == false){
+					if(table[row][first] == 0 && table[row][second] == 1 && ft == false){
 						ft = true;
 						toDisplay.add(row);
 						
@@ -104,18 +104,13 @@ public class Pairwise{
 						tf = true;
 						toDisplay.add(row);
 						
-					}else if(table[row][first] == 1 && table[row][second] == 1 && tt == false){
-						tt = true;
-						toDisplay.add(row);
-						
 					}
-					
 					row = row + 1;
 				}
 				
 			}else{
 				int flag = 0;
-				while(!ff && !ft && !tf && !tt){
+				while(!ff || !ft || !tf || !tt){
 					if(row > numRows){
 						System.out.println("ERROR: Could not find pair coverage");
 						System.exit(2);
@@ -125,16 +120,17 @@ public class Pairwise{
 						//Check toDisplay First
 						int i = 0;
 						while(i < toDisplay.size()){
-							if(table[i][first] == 0 && table[i][second] == 0 && ff == false){
+							
+							if(table[toDisplay.get(i)][first] == 0 && table[toDisplay.get(i)][second] == 0 && ff == false){
 								ff = true;
 							
-							}else if(table[i][first] == 0 && table[i][second] == 1 && ft == false){
+							}else if(table[toDisplay.get(i)][first] == 0 && table[toDisplay.get(i)][second] == 1 && ft == false){
 								ft = true;
 								
-							}else if(table[i][first] == 1 && table[i][second] == 0 && tf == false){
+							}else if(table[toDisplay.get(i)][first] == 1 && table[toDisplay.get(i)][second] == 0 && tf == false){
 								tf = true;
 								
-							}else if(table[i][first] == 1 && table[i][second] == 1 && tt == false){
+							}else if(table[toDisplay.get(i)][first] == 1 && table[toDisplay.get(i)][second] == 1 && tt == false){
 								tt = true;
 								
 							}
@@ -173,11 +169,10 @@ public class Pairwise{
 			}
 			
 			//update the indices we are comparing
+			second = second + 1;
 			if(second == numParameters){
 				first = first + 1;
 				second = first + 1;
-			}else{
-				second = second + 1;
 			}
 		
 		}
@@ -220,7 +215,8 @@ public class Pairwise{
 		if(!parameters.isEmpty()){
 			//Build Exhaustive Truth Table, #param^2 by #param
 			int w = parameters.size();
-			int l = (int)(Math.pow(w, 2));
+			int l = (int) Math.pow(2, w);
+			
 			int[][] table;
 			table = buildOverallTruthTable(l, w);
 			
@@ -234,6 +230,7 @@ public class Pairwise{
 			System.out.println(printMe);
 		}else{
 			System.out.println("ERROR: Invalid Arguments. \nAt least two arguments are required.");
+			System.exit(1);
 		}
 		
 		//Exit Main
