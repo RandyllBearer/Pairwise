@@ -1,46 +1,41 @@
 import java.util.ArrayList;
 
-
 /*
 *
 */
 public class Pairwise{
-	static ArrayList<Integer> toDisplay = new ArrayList<Integer>();	//Will hold all the rows we need to display
-	static ArrayList<String> parameters = new ArrayList<String>();		//Will hold all the user-passed in parameters
-	static int first = 0;
-	static int second = 0;
-	static int numParameters = 0;		//How many passed in user arguments there are
-	static int numRows = 0;			//How many total rows there are: #param^2
-	static int[][] table = null;	//Will hold the exhaustive truth table, padded to 10 character length
 	
 	/*
 	*
 	*/
-	public static void parseInput(String[] arguments){
+	
+	public static ArrayList<String> parseInput(String[] arguments){
+		ArrayList<String> parameters = new ArrayList<String>();
+		parameters.clear();
+		
 		if(arguments.length < 2){
-			System.out.println("ERROR: Pairwise.java requires at least two parameter arguments to produce a pairwise combination");
-			System.exit(1);
+			return parameters;
 		}else{
-			numParameters = arguments.length;
+			int numParameters = arguments.length;
 			int i = 0;
 			while(i < numParameters){
 				if(arguments[i].length() > 10){
-					arguments[i] = arguments[i].substring(0,11);
+					arguments[i] = arguments[i].substring(0,10);
 				}
 				parameters.add(arguments[i]);
 				i = i + 1;
 			}
 		}
+		
+		return parameters;
 	}
 	
 	/*
 	*
 	*/
-	public static int[][] buildOverallTruthTable(){
-		double w = numParameters;
-		double l = Math.pow(2, w);
-		
-		int[][] table = new int[(int)(l)][(int)(w)];
+	
+	public static int[][] buildOverallTruthTable(int l, int w){
+		int[][] table = new int[l][w];
 		
 		for(int i=0; i<l; i++){
 			if(i==0){
@@ -48,8 +43,8 @@ public class Pairwise{
 					table[i][j]=0;
 				}
 			}else{
-				for(int j=(int)(w)-1; j>=0; j--){
-					if(j==((int)(w)-1)){
+				for(int j=w-1; j>=0; j--){
+					if(j==w-1){
 						if(table[i-1][j] == 0){
 							table[i][j] = 1;
 						}else{
@@ -70,23 +65,18 @@ public class Pairwise{
 			}
 		}
 		
-		//Testing output REMOVE
-		for(int i=0; i<l; i++){
-			for(int j=0; j<w; j++){
-				System.out.println("i: " + Integer.toString(i) + "  j: " + Integer.toString(j) + "  val: " + Integer.toString(table[i][j]));
-			}
-		}
-		
 		return table;
 	}
 	
 	/*
 	*
 	*/
-	public static void findToDisplay(){
+	
+	public static ArrayList<Integer> findToDisplay(int[][] table, int numRows, int numParameters){
+		ArrayList<Integer> toDisplay = new ArrayList<Integer>();
+		int first = 0;	//index of parameters<>
+		int second = 1;	//index of parameters<>
 		
-		first = 0;	//index of parameters<>
-		second = 1;	//index of parameters<>
 		while(first < numParameters){
 			
 			boolean ff = false;
@@ -191,35 +181,60 @@ public class Pairwise{
 			}
 		
 		}
-	}
 		
-	/*
-	*
-	*/
-	public static void displayAll(){
-		int i = 0;
-		while(i < toDisplay.size()){
-			System.out.println(toDisplay.get(i));
-			
-			i = i + 1;
-		}
+		return toDisplay;
 	}
 	
 	/*
 	*
 	*/
+	
+	public static String buildOutput(ArrayList<String> cats, ArrayList<Integer> rows, int[][] table){
+		String out = "";
+
+		for(String c:cats){
+			out += c + "\t";
+		}
+		out += "\n";
+
+		for(int r:rows){
+			for(int i=0;i<table[r].length; i++){
+				out+=Integer.toString(table[r][i])+"\t";
+			}
+			out+="\n";
+		}
+
+
+		return out;
+	}
+	
+	/*
+	*
+	*/
+
 	public static void main(String[] args){
 		//Parse Inputs, concatenate if > 10
-		parseInput(args);
+		ArrayList<String> parameters = new ArrayList<String>();
+		parameters = parseInput(args);
 		
-		//Build Exhaustive Truth Table, #param^2 by #param
-		table = buildOverallTruthTable();
-		
-		//Find all toDisplay Tests
-		findToDisplay();
-		
-		//Display all toDisplay
-		displayAll();
+		if(!parameters.isEmpty()){
+			//Build Exhaustive Truth Table, #param^2 by #param
+			int w = parameters.size();
+			int l = (int)(Math.pow(w, 2));
+			int[][] table;
+			table = buildOverallTruthTable(l, w);
+			
+			//Find all toDisplay Tests
+			ArrayList<Integer> toDisplay = new ArrayList<Integer>();
+			toDisplay = findToDisplay(table, l, w);
+			
+			//Build Program Output
+			String printMe;
+			printMe = buildOutput(parameters, toDisplay, table);
+			System.out.println(printMe);
+		}else{
+			System.out.println("ERROR: Invalid Arguments. \nAt least two arguments are required.");
+		}
 		
 		//Exit Main
 		System.exit(0);
