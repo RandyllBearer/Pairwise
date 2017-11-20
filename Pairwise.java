@@ -133,7 +133,7 @@ public class Pairwise {
 						int i = 0;
 						while (i < toDisplay.size()) {
 							int a = table[toDisplay.get(i)][first];
-							int b = table[toDsiplay.get(i)][second];
+							int b = table[toDisplay.get(i)][second];
 							if ( a == 0 && b == 0 && ff == false) {
 								ff = true;
 							
