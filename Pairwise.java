@@ -204,15 +204,26 @@ public class Pairwise {
 	*/
 	public static String buildOutput(ArrayList<String> cats, ArrayList<Integer> rows, int[][] table) {
 		StringBuilder out = new StringBuilder("");
-
-		for (String c:cats) {
-			out.append(c + "\t");
+		ArrayList<Integer> toTabTwice = new ArrayList<Integer>();
+		
+		int j = 0;
+		while (j < cats.size() ) {
+			String temp = cats.get(j);
+			if (temp.length() == 10 ) {
+				toTabTwice.add(j);
+			}
+			out.append(temp + "\t");
+			j = j + 1;
 		}
 		out.append("\n");
 
 		for (int r:rows) {
 			for (int i = 0; i < table[r].length; i++) {
-				out.append(Integer.toString(table[r][i]) + "\t");
+				if (toTabTwice.contains(i) ) {
+					out.append(Integer.toString(table[r][i]) + "\t\t" );
+				} else {
+					out.append(Integer.toString(table[r][i]) + "\t");
+				}
 			}
 			out.append("\n");
 		}
