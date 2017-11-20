@@ -156,24 +156,24 @@ public class Del5Test {
 	After checking for both 2 and 3 inputs, it should follow from here
 	that the logic used to build the truth table is sound.
 	*/
-	//@Test
+	@Test
 	public void testTruthTableThreeInputs() {
 		//Create two new array lists for the test
 		int[][] test1 = new int[][]{
-			{0,0},
-			{0,1},
-			{1,0},
-			{0,0},
-			{0,1},
-			{1,0},
-			{0,0},
-			{1,1}
+			{0,0,0},
+			{0,0,1},
+			{0,1,0},
+			{0,1,1},
+			{1,0,0},
+			{1,0,1},
+			{1,1,0},
+			{1,1,1}
 		};
 		int[][] test2;
 		
 		test2 = _p.buildOverallTruthTable(8, 3);
 
-		//Make use the 
+		//Make sure observed method results match what was expected 
 		assertEquals(test2, test1);
 	}
 	
@@ -315,15 +315,3 @@ public class Del5Test {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
