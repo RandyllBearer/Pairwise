@@ -39,6 +39,10 @@ public class Pairwise {
 	* @return An exhaustive truth table in the form of a 2D array
 	*/
 	public static int[][] buildOverallTruthTable(int l, int w) {
+		if ( w > l ) {
+			return null;
+		}
+		
 		int[][] table = new int[l][w];
 		
 		for (int i = 0; i < l; i++) {
@@ -248,6 +252,9 @@ public class Pairwise {
 			
 			int[][] table;
 			table = buildOverallTruthTable(l, w);
+			if ( table == null ) {
+				throw new RuntimeException("ERROR: Truth table cannot have more parames than rows!");
+			}
 			
 			//Find all toDisplay Tests
 			ArrayList<Integer> toDisplay = new ArrayList<Integer>();

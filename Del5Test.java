@@ -108,6 +108,26 @@ public class Del5Test {
 	//----------- buildOverallTruthTable(int l, int w) ----------
 	
 	/*
+	Assert that buildOverallTruthTable(), when passed a w argument > l, 
+	returns a null value as such a circumstance should never occur.
+	*/
+	@Test
+	public void testTruthTableException() {
+		int[][] test1 = new int[][]{
+			{0,0},
+			{0,1},
+			{1,0},
+			{1,1}
+		};
+		int[][] test2;
+		
+		//Run the method
+		test2 = _p.buildOverallTruthTable(4, 5);
+		
+		assertEquals(test2, null);
+	}
+	
+	/*
 	Assert that an appropriate truth table is generated for two inputs
 	The truth table is generated in a similar way to binary counting.
 	Therefore, the expected output for any amount of arguments is easily derived.
@@ -242,10 +262,10 @@ public class Del5Test {
 	//-------------- buildOutput(ArrayList<String> cats, ArrayList<Integer> rows, int[][] table) -----------
 	
 	/*
-	Assert that buildOutput properly formats its return string.
+	Assert that buildOutput properly formats its return string under normal circumstances.
 	*/
 	@Test
-	public void testBuildOutput(){
+	public void testBuildOutputStandard(){
 		ArrayList<String> parameters = new ArrayList<String>();
 		parameters.add("Alpha");
 		parameters.add("Bravo");
@@ -263,6 +283,33 @@ public class Del5Test {
 		String toCompare = "Alpha" + "\t" + "Bravo" + "\t\n";
 		toCompare = toCompare + "0" + "\t" + "0" + "\t\n";
 		toCompare = toCompare + "0" + "\t" + "1" + "\t\n";
+		
+		assertEquals(toCompare, result);
+	}
+	
+	/*
+	Assert that buildOutput properly formats its return string if passed params of length 10.
+	Previously caused an error where the truth table columns were not properly aligned.
+	*/
+	@Test
+	public void testBuildOutputLong(){
+		ArrayList<String> parameters = new ArrayList<String>();
+		parameters.add("0123456789");
+		parameters.add("Bravo");
+		ArrayList<Integer> indices = new ArrayList<Integer>();
+		indices.add(0);
+		indices.add(1);
+		int[][] test1 = new int[][]{
+			{0,0},
+			{0,1},
+			{1,0},
+			{1,1}
+		};
+
+		String result = _p.buildOutput(parameters, indices, test1);
+		String toCompare = "0123456789" + "\t" + "Bravo" + "\t\n";
+		toCompare = toCompare + "0" + "\t\t" + "0" + "\t\n";
+		toCompare = toCompare + "0" + "\t\t" + "1" + "\t\n";
 		
 		assertEquals(toCompare, result);
 	}
