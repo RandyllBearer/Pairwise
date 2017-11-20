@@ -249,7 +249,6 @@ public class Del5Test {
 		ArrayList<String> parameters = new ArrayList<String>();
 		parameters.add("Alpha");
 		parameters.add("Bravo");
-		parameters.add("Charlie");
 		ArrayList<Integer> indices = new ArrayList<Integer>();
 		indices.add(0);
 		indices.add(1);
@@ -261,7 +260,7 @@ public class Del5Test {
 		};
 
 		String result = _p.buildOutput(parameters, indices, test1);
-		String toCompare = "Alpha" + "\t" + "Bravo" + "\t" + "Charlie" + "\t\n";
+		String toCompare = "Alpha" + "\t" + "Bravo" + "\t\n";
 		toCompare = toCompare + "0" + "\t" + "0" + "\t\n";
 		toCompare = toCompare + "0" + "\t" + "1" + "\t\n";
 		
